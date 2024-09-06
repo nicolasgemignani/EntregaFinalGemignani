@@ -1,0 +1,112 @@
+[
+    {
+        "title": "Smartphone XYZ",
+        "description": "Un smartphone con pantalla de 6.5 pulgadas y cámara de 48 MP.",
+        "code": "SP123",
+        "price": 299.99,
+        "status": true,
+        "stock": 50,
+        "category": "Electronics",
+        "thumbnail": "https://example.com/images/sp123.jpg"
+    },
+    {
+        "title": "Laptop ABC",
+        "description": "Laptop con procesador Intel i7, 16GB RAM y 512GB SSD.",
+        "code": "LP456",
+        "price": 799.99,
+        "status": true,
+        "stock": 30,
+        "category": "Electronics",
+        "thumbnail": "https://example.com/images/lp456.jpg"
+    },
+    {
+        "title": "Headphones Pro",
+        "description": "Auriculares inalámbricos con cancelación de ruido.",
+        "code": "HP789",
+        "price": 149.99,
+        "status": true,
+        "stock": 100,
+        "category": "Electronics",
+        "thumbnail": "https://example.com/images/hp789.jpg"
+    },
+    {
+        "title": "Refrigerador Smart",
+        "description": "Refrigerador con función de control remoto y eficiencia energética.",
+        "code": "RF012",
+        "price": 499.99,
+        "status": true,
+        "stock": 20,
+        "category": "Home Appliances",
+        "thumbnail": "https://example.com/images/rf012.jpg"
+    },
+    {
+        "title": "Microwave Oven",
+        "description": "Microondas de 700W con 10 niveles de potencia.",
+        "code": "MW345",
+        "price": 89.99,
+        "status": true,
+        "stock": 40,
+        "category": "Home Appliances",
+        "thumbnail": "https://example.com/images/mw345.jpg"
+    },
+    {
+        "title": "Air Conditioner",
+        "description": "Aire acondicionado de 1.5 toneladas con control remoto.",
+        "code": "AC678",
+        "price": 599.99,
+        "status": true,
+        "stock": 15,
+        "category": "Home Appliances",
+        "thumbnail": "https://example.com/images/ac678.jpg"
+    },
+    {
+        "title": "Coffee Maker",
+        "description": "Cafetera automática con función de temporizador.",
+        "code": "CM901",
+        "price": 59.99,
+        "status": true,
+        "stock": 60,
+        "category": "Home Appliances",
+        "thumbnail": "https://example.com/images/cm901.jpg"
+    },
+    {
+        "title": "Gaming Console",
+        "description": "Consola de videojuegos de última generación con 1TB de almacenamiento.",
+        "code": "GC234",
+        "price": 399.99,
+        "status": true,
+        "stock": 25,
+        "category": "Gaming",
+        "thumbnail": "https://example.com/images/gc234.jpg"
+    },
+    {
+        "title": "4K TV",
+        "description": "Televisor 4K Ultra HD de 55 pulgadas con HDR.",
+        "code": "TV567",
+        "price": 699.99,
+        "status": true,
+        "stock": 10,
+        "category": "Electronics",
+        "thumbnail": "https://example.com/images/tv567.jpg"
+    },
+    {
+        "title": "Digital Camera",
+        "description": "Cámara digital de 20 MP con lente zoom de 15x.",
+        "code": "DC890",
+        "price": 349.99,
+        "status": true,
+        "stock": 12,
+        "category": "Electronics",
+        "thumbnail": "https://example.com/images/dc890.jpg"
+    },
+    {
+        "title": "Smartwatch Series 5",
+        "description": "Reloj inteligente con monitor de frecuencia cardíaca y GPS.",
+        "code": "SW123",
+        "price": 229.99,
+        "status": true,
+        "stock": 35,
+        "category": "Electronics",
+        "thumbnail": "https://example.com/images/sw123.jpg"
+    }
+]

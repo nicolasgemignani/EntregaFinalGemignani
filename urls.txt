@@ -1,0 +1,38 @@
+
+Probando el get product
+http://localhost:8080/api/products?limit=5&page=1
+
+http://localhost:8080/api/products?limit=5&page=1&sort=price:1
+http://localhost:8080/api/products?limit=5&page=1&sort=price:-1
+
+http://localhost:8080/api/products?limit=5&page=1&query={"category":"Electronics"}
+
+
+Probando Cart
+
+POST
+http://localhost:8080/api/carts/
+
+GET
+http://localhost:8080/api/carts/66db7a614893bde247f2d809
+
+POST
+http://localhost:8080/api/carts/66db7a614893bde247f2d809/products/66db3be9de9382dd66704315
+{
+    "quantityToAdd": 3
+}
+
+PUT
+http://localhost:8080/api/carts/66db7a614893bde247f2d809/products
+[
+    {
+        "product": "66db3be9de9382dd6670430f", "quantity": 2 
+    }
+]
+
+
+PUT
+http://localhost:8080/api/carts/66db7a614893bde247f2d809/products/66db3be9de9382dd6670430f
+{
+    "quantity": 5
+}
