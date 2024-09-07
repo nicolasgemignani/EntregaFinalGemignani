@@ -59,5 +59,52 @@ router.get('/', async (req, res) => {
     }
 });
 
+router.get('/:id', async (req, res) => {
+    try {
+        const productId = req.params.id;
+        const product = await productService.getProductById(productId);
+        if (!product) {
+            return res.status(404).json({ message: 'Product not found' });
+        }
+        res.json(product);
+    } catch (error) {
+        res.status(500).json({ message: 'Error fetching product by ID', error: error.message });
+    }
+});
+
+router.post('/', async (req, res) => {
+    try {
+        const newProduct = await productService.createProduct(req.body);
+        res.status(201).json(newProduct);
+    } catch (error) {
+        res.status(500).json({ message: 'Error creating product', error: error.message });
+    }
+});
+
+router.put('/:id', async (req, res) => {
+    try {
+        const productId = req.params.id;
+        const updatedProduct = await productService.updateProduct(productId, req.body);
+        if (!updatedProduct) {
+            return res.status(404).json({ message: 'Product not found' });
+        }
+        res.json(updatedProduct);
+    } catch (error) {
+        res.status(500).json({ message: 'Error updating product', error: error.message });
+    }
+});
+
+router.delete('/:id', async (req, res) => {
+    try {
+        const productId = req.params.id;
+        const deletedProduct = await productService.deleteProduct(productId);
+        if (!deletedProduct) {
+            return res.status(404).json({ message: 'Product not found' });
+        }
+        res.json({ message: 'Product deleted successfully' });
+    } catch (error) {
+        res.status(500).json({ message: 'Error deleting product', error: error.message });
+    }
+});
 
 export default router

@@ -1,0 +1,23 @@
+<h1>Index handlebars</h1>
+
+<ul>
+    {{#each products}}
+    <li>
+        Title: {{this.title}} <br>
+        Price: {{this.price}} <br>
+        Category: {{this.category}} <br>
+        <button onclick="agregarAlCarrito('{{this._id}}')">Agregar al carrito</button>
+    </li>
+    {{/each}}
+</ul>
+
+{{#if hasPrevPage}}
+    <a href="/products?page={{prevPage}}">Anterior</a>
+{{/if}}
+
+{{#if hasNextPage}}
+    <a href="/products?page={{nextPage}}">Siguiente</a>
+{{/if}}
+<p>Página {{currentPage}} de {{totalPages}}</p>
+
+<script src="/js/products.js"></script>

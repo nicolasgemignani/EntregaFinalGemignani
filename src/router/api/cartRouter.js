@@ -9,12 +9,10 @@ const cartService = new CartDaosMongo()
 router.post('/', async (req, res) => {
     try {
         // Llamar al método createCart para crear un nuevo carrito
-        const newCart = await cartService.createCart();
+        const cart = await cartService.createCart();
+        req.session.cartId = cart._id
 
-        res.status(201).json({
-            status: 'success',
-            payload: newCart
-        });
+        res.json({ cartId: cart._id})
     } catch (error) {
         console.error('Error creando el carrito:', error);
         res.status(500).json({
@@ -119,16 +117,31 @@ router.put('/:cartId/product/:productId', async (req, res) => {
     const { quantity } = req.body;
 
     try {
+        // Validar que quantity sea un número positivo
         if (typeof quantity !== 'number' || quantity <= 0) {
             return res.status(400).json({ error: 'La cantidad debe ser un número positivo' });
         }
 
+        // Llamar al servicio para actualizar la cantidad del producto
         const updatedCart = await cartService.updateProductQuantity(cartId, productId, quantity);
-        res.json(updatedCart);
+
+        // Verificar si se devolvió un carrito actualizado
+        if (!updatedCart) {
+            return res.status(404).json({ error: 'Carrito o producto no encontrado' });
+        }
+
+        // Responder con el carrito actualizado
+        res.status(200).json({
+            status: 'success',
+            payload: updatedCart
+        });
     } catch (error) {
-        res.status(500).json({ error: error.message });
+        // Manejar y responder con errores
+        console.error('Error al actualizar la cantidad del producto:', error);
+        res.status(500).json({ error: 'No se pudo actualizar la cantidad del producto' });
     }
 });
+
 
 
 // removeProductFromCArt
@@ -162,7 +175,7 @@ router.delete('/:cartId/products/:productId', async (req, res) => {
 
 
 // emptyCart
-router.delete('/', async (req, res) => {
+router.delete('/:cartId', async (req, res) => {
     try {
         const { cartId } = req.params;
         
@@ -183,5 +196,15 @@ router.delete('/', async (req, res) => {
     }
 })
 
+router.delete('/remove/:cartId', async (req, res) => {
+    const { cartId } = req.params;
+
+    try {
+        const result = await cartService.deleteCart(cartId);
+        res.json(result);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
 
 export default router

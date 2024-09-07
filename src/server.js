@@ -1,6 +1,6 @@
 import express from 'express'
 import handlebars from 'express-handlebars'
-/* import __dirname from './utils/__dirname.js' */
+import session from 'express-session'
 import connectDB from './config/index.js'
 import appRouter from './router/index.js'
 
@@ -17,6 +17,16 @@ const __dirname = dirname(__filename);
 const app = express()
 const PORT = 8080
 
+app.use(session({
+    secret: '123',
+    resave: false,
+    saveUninitialized: true,
+    cookie: {
+        secure: process.env.NODE_ENV === 'production',
+        httpOnly: true,
+    }
+}))
+
 app.use(express.json())
 app.use(express.urlencoded({extended: true}))
 app.use(express.static(join(__dirname, 'public')))
@@ -29,9 +39,14 @@ app.set('view engine', 'handlebars')
 
 app.use(appRouter)
 
-app.listen(PORT, err => {
-    if (err) console.log(err)
-    console.log(`Servidor escuchando en el puertoo ${PORT}`)
-})
+app.listen(PORT, () => {
+    console.log(`Servidor escuchando en el puerto ${PORT}`);
+}).on('error', err => {
+    console.error('Error al iniciar el servidor:', err);
+});
 
-connectDB()
+connectDB().then(() => {
+    console.log('Conectado a la base de datos');
+}).catch(err => {
+    console.error('Error al conectar a la base de datos:', err);
+});
