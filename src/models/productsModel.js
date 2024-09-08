@@ -1,9 +1,12 @@
+// Importa mongoose para interactuar con MongoDB y el plugin de paginacion de mongoose
 import mongoose from "mongoose";
 import mongoosePaginate from "mongoose-paginate-v2";
 
+// Define el esquema de la coleccion de productos
 const collectionName = 'products'
 
-const productSchema = mongoose.Schema ({
+// Define el esquema de la coleccion de productos
+const productSchema = new mongoose.Schema ({
     title:{
         type: String,
         required: true
@@ -39,8 +42,11 @@ const productSchema = mongoose.Schema ({
         required: true
     }
 })
+
+// A;ade el plugin de paginacion al esquema de productos
 productSchema.plugin(mongoosePaginate)
 
+// Crea el modelo de 'product' basado en el esquema definido
 const productModel = mongoose.model(collectionName, productSchema)
 
 export default productModel
