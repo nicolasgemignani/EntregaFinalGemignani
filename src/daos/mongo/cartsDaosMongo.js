@@ -39,38 +39,41 @@ class CartDaosMongo {
 
     // Metodo para agregar un producto al carrito con la cantidad especifica
     addProductToCart = async (cartId, productId, quantityToAdd = 1) => {
-        try {
-            // Busca el carrito por ID
-            const cart = await this.model.findById(cartId);
-            if (!cart) {
-                throw new Error('Carrito no encontrado');
-            }
-            
-            // Busca el producto por ID
-            const product = await productModel.findById(productId);
-            if (!product) {
-                throw new Error('Producto no encontrado');
-            }
-            
-            // Busca si el producto ya existe en el carrito
-            const existingProduct = cart.products.find(p => p.product.toString() === productId.toString());
-    
-            if (existingProduct) {
-                // Si el producto ya existe, aumenta su cantidad
-                existingProduct.quantity += quantityToAdd;
-            } else {
-                // Si no existe, lo agrega al carrito con la cantidad especificada
-                cart.products.push({ product: productId, quantity: quantityToAdd });
-            }
-            
-            
-            await cart.save(); // Guarda el carrito actualizado
-            return cart;
-        } catch (error) {
-            console.error('Error agregando el producto al carrito:', error);
-            throw new Error('No se pudo agregar el producto al carrito');
+    try {
+        // Busca el carrito por ID
+        const cart = await this.model.findById(cartId);
+        if (!cart) {
+            throw new Error('Carrito no encontrado');
         }
+
+        // Busca el producto por ID
+        const product = await productModel.findById(productId);
+        if (!product) {
+            throw new Error('Producto no encontrado');
+        }
+
+        // Intenta actualizar la cantidad del producto en el carrito
+        const updateResult = await this.model.updateOne(
+            { _id: cartId, 'products.product': productId },
+            {
+                $inc: { 'products.$.quantity': quantityToAdd }
+            }
+        );
+
+        // Si no se actualizó, significa que el producto no estaba en el carrito
+        if (updateResult.modifiedCount === 0) {
+            // Agrega el nuevo producto al carrito
+            cart.products.push({ product: productId, quantity: quantityToAdd });
+            await cart.save(); // Guarda el carrito actualizado
+        }
+
+        return cart; // Devuelve el carrito actualizado
+    } catch (error) {
+        console.error('Error agregando el producto al carrito:', error);
+        throw new Error('No se pudo agregar el producto al carrito');
     }
+}
+
 
     // Metodo para actualizar los productos de un carrito
     updateCartProducts = async (cartId, newProducts) => {
